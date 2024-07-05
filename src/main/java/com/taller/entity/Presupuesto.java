@@ -22,15 +22,15 @@ public class Presupuesto {
 
     @Column(name = "fecha")
     private LocalDate fecha;
-    @Column(name = "diagFinal")
+    @Column(name = "diagfinal")
     private String diagFinal;
     @Column(name = "monto")
     private double monto;
     @Column(name = "aceptado")
     private boolean aceptado;
     @ManyToOne
-    @JoinColumn(name = "id")
-    private Long codFicha;
+    @JoinColumn(name = "codf")
+    private Ficha ficha;
 
     @ManyToMany
     @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "NPresup"),

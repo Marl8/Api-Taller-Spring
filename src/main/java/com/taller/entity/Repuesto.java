@@ -15,10 +15,11 @@ import java.util.Set;
 @Data
 public class Repuesto {
 
-    @Column(name = "codRep")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codrep")
     private Long id;
+
     @Column(name = "nombre")
     private String nombre;
     @Column(name = "stock")
