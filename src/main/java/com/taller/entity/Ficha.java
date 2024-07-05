@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 @Entity
 @Table(name = "ficha")
@@ -22,4 +23,7 @@ public class Ficha {
     private LocalDate fecha;
     @Column(name = "hora")
     private LocalTime hora;
+
+    @OneToMany(mappedBy = "ficha")
+    Set<Presupuesto> presupuestos;
 }

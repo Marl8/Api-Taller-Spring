@@ -34,6 +34,6 @@ public class Presupuesto {
 
     @ManyToMany
     @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "NPresup"),
-            inverseJoinColumns = @JoinColumn(name = "codRep"))
+            inverseJoinColumns = @JoinColumn(name = "codrep"))
     private Set<Repuesto> repuestos = new HashSet<>();
 }
