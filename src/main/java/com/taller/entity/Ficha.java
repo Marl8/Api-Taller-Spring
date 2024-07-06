@@ -26,4 +26,8 @@ public class Ficha {
 
     @OneToMany(mappedBy = "ficha")
     Set<Presupuesto> presupuestos;
+
+    @ManyToOne
+    @JoinColumn(name = "codVeh")
+    private Vehiculo vehiculo;
 }

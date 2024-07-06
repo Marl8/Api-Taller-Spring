@@ -32,7 +32,7 @@ public class Repuesto {
     private String unidad;
 
     @ManyToMany
-    @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "codRep"),
+    @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "codrep"),
             inverseJoinColumns = @JoinColumn(name = "NPresup"))
     private Set<Repuesto> repuestos = new HashSet<>();
 }
