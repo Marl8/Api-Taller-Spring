@@ -32,8 +32,6 @@ public class Presupuesto {
     @JoinColumn(name = "codf")
     private Ficha ficha;
 
-    @ManyToMany
-    @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "NPresup"),
-            inverseJoinColumns = @JoinColumn(name = "codrep"))
-    private Set<Repuesto> repuestos = new HashSet<>();
+    @OneToMany(mappedBy ="presupuesto")
+    private Set<PresuRep> repuestos;
 }

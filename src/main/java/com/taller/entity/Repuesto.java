@@ -31,8 +31,6 @@ public class Repuesto {
     @Column(name = "Unidad")
     private String unidad;
 
-    @ManyToMany
-    @JoinTable(name = "presurep", joinColumns = @JoinColumn(name = "codrep"),
-            inverseJoinColumns = @JoinColumn(name = "NPresup"))
-    private Set<Repuesto> repuestos = new HashSet<>();
+    @OneToMany(mappedBy = "repuesto")
+    private Set<PresuRep> repuestos;
 }
