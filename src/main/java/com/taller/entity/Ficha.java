@@ -30,4 +30,7 @@ public class Ficha {
     @ManyToOne
     @JoinColumn(name = "codVeh")
     private Vehiculo vehiculo;
+
+    @OneToMany(mappedBy = "ficha")
+    private Set<FichaMd> fichasMd;
 }
