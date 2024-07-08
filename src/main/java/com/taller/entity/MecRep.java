@@ -4,26 +4,27 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.util.Set;
+import java.time.LocalTime;
 
 @Entity
-@Table(name = "mecdiag")
+@Table(name = "mecrep")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class MecDiag {
+public class MecRep {
 
     @Id
-    @Column(name = "codmd")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "codmr")
     private Long id;
 
-    @Column(name = "tematica")
-    private String tematica;
+    @Column(name = "hora_E")
+    private LocalTime horaEntrada;
+
+    @Column(name = "hora_S")
+    private LocalTime horaSalida;
 
     @ManyToOne
     @JoinColumn(name = "codmec")
     private Mecanico mecanico;
-
-    @OneToMany(mappedBy = "mecDiag")
-    private Set<FichaMd> fichasMd;
 }
