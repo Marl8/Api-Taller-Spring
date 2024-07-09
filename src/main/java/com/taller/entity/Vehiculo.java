@@ -15,14 +15,6 @@ import java.util.Set;
 @Data
 public class Vehiculo {
 
-    public Vehiculo(Long id, String color, String marca, String modelo, String matricula, Long idCliente) {
-        this.id = id;
-        this.color = color;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.matricula = matricula;
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codveh")
