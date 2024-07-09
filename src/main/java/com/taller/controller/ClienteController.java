@@ -1,6 +1,7 @@
 package com.taller.controller;
 
 import com.taller.dto.request.ClienteRequestDto;
+import com.taller.dto.request.ClienteUpdateDto;
 import com.taller.services.IClienteService;
 import com.taller.services.impl.ClienteServiceImpl;
 import jakarta.validation.Valid;
@@ -27,13 +28,23 @@ public class ClienteController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getClient(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
+    public ResponseEntity<?> getCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.getClient(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
-    public ResponseEntity<?> saveClient(@RequestBody @Valid ClienteRequestDto clienteDto){
+    public ResponseEntity<?> saveCliente(@RequestBody @Valid ClienteRequestDto clienteDto){
         return new ResponseEntity<>(service.saveCliente(clienteDto), HttpStatus.CREATED);
     }
 
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updateCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id,
+                                           @RequestBody ClienteUpdateDto clienteDto){
+        return new ResponseEntity<>(service.updateCliente(id, clienteDto), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?> deleteCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
+        return new ResponseEntity<>(service.deleteCliente(id), HttpStatus.OK);
+    }
 }
