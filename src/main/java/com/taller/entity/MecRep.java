@@ -25,6 +25,6 @@ public class MecRep {
     private LocalTime horaSalida;
 
     @ManyToOne
-    @JoinColumn(name = "codmec")
+    @JoinColumn(name = "codmec", referencedColumnName= "codmec")
     private Mecanico mecanico;
 }

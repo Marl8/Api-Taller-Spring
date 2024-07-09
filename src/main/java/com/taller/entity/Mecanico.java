@@ -21,7 +21,7 @@ public class Mecanico {
     private String nombre;
     @Column(name = "apellido")
     private String apellido;
-    @Column(name = "DNI")
+    @Column(name = "dni")
     private String dni;
     @Column(name = "tel")
     private String tel;

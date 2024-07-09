@@ -21,7 +21,7 @@ public class MecDiag {
     private String tematica;
 
     @ManyToOne
-    @JoinColumn(name = "codmec")
+    @JoinColumn(name = "codmec", referencedColumnName= "codmec")
     private Mecanico mecanico;
 
     @OneToMany(mappedBy = "mecDiag")
