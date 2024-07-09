@@ -1,5 +1,6 @@
 package com.taller.utils;
 
+import com.taller.dto.request.ClienteRequestDto;
 import com.taller.dto.request.VehiculoRequestDto;
 import com.taller.dto.response.ResponseGetClientDto;
 import com.taller.dto.response.ResponseGetClientesDto;
@@ -22,4 +23,15 @@ public class ClienteMapper {
         return new ResponseGetClientDto(cliente.getId(),cliente.getNombre(),cliente.getApellido(),
                 cliente.getDni(),cliente.getTel(), cliente.getDireccion(), result);
     }
+
+    public static Cliente clienteRequestDto(ClienteRequestDto clienteDto) {
+        Cliente cliente = new Cliente();
+        cliente.setNombre(clienteDto.getNombre());
+        cliente.setApellido(clienteDto.getApellido());
+        cliente.setDni(clienteDto.getDni());
+        cliente.setDireccion(clienteDto.getDireccion());
+        cliente.setTel(clienteDto.getTel());
+        return cliente;
+    }
+
 }

@@ -3,7 +3,7 @@ create database agencia_db_prueba;
 use agencia_db_prueba;
 
 create table cliente(
-codC int,
+codC int auto_increment,
 DNI varchar(12),
 Nombre Varchar(45),
 Apellido varchar(50),
@@ -13,7 +13,7 @@ constraint PK_cliente primary key(codC)
 )ENGINE=INNODB;
 
 create table mecanico(
-codMec int,
+codMec int auto_increment,
 Nombre Varchar(45),
 Apellido varchar(50),
 DNI varchar(12),
@@ -24,7 +24,7 @@ constraint PK_mecanico primary key(codMec)
 
 
 create table mecdiag(
-codMD int,
+codMD int auto_increment,
 tematica varchar(70),
 codMec int,
 constraint PK_mecdiag primary key(codMD),
@@ -33,7 +33,7 @@ constraint FK_mecdiag_mec foreign key(codMec) references mecanico(codMec)
 
 
 create table mecrep(
-codMR int,
+codMR int auto_increment,
 horaE time,
 horaS time,
 codMec int,
@@ -42,7 +42,7 @@ constraint FK_mecrep_mec foreign key(codMec) references mecanico(codMec)
 )ENGINE=INNODB;
 
 create table vehiculo(
-codVEH int,
+codVEH int auto_increment,
 Matricula varchar(7),
 Modelo varchar(45),
 Marca varchar(50),
@@ -53,7 +53,7 @@ constraint FK_vehiculo FOREIGN key(codC) references cliente(codC)
 )ENGINE=INNODB;
 
 create table repuesto(
-codRep int,
+codRep int auto_increment,
 Nombre varchar (50),
 stock int,
 PP int,
@@ -63,7 +63,7 @@ constraint PK_codRep primary key(codRep)
 )ENGINE=INNODB;
 
 create table ficha(
-codF int,
+codF int auto_increment,
 codVEH int,
 fecha date,
 hora time,
@@ -83,7 +83,7 @@ constraint FK_codMD_FM FOREIGN key(codMD) references MecDiag(codMD)
 
 
 create table presup(
-NPresup int,
+NPresup int auto_increment,
 codF int,
 fecha date,
 DiagFinal varchar(100),
