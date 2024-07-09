@@ -40,13 +40,12 @@ public class ClienteServiceImpl implements IClienteService {
 
     @Override
     public ResponseDto saveCliente(ClienteRequestDto clienteDto) {
-        Cliente guardado = new Cliente();
         Optional<Cliente> existe = repository.findClienteByDni(clienteDto.getDni());
         if(existe.isPresent()) {
             throw new IllegalStateException("El cliente ya existe");
         }else {
             Cliente cliente = ClienteMapper.clienteRequestDto(clienteDto);
-            guardado = repository.save(cliente);
+            repository.save(cliente);
         }
         return new ResponseDto("El cliente se ha guardado con éxito");
     }
