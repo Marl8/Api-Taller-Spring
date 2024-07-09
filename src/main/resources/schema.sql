@@ -88,6 +88,7 @@ codF int,
 fecha date,
 DiagFinal varchar(100),
 Monto float,
+Aceptado boolean,
 constraint PK_NPresup primary key(NPresup),
 constraint FK_codF_presup FOREIGN key(codF) references ficha(codF)
 )ENGINE=INNODB;

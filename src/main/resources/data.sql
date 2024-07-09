@@ -168,11 +168,11 @@ insert into fichamd values
 (8007,2151,'Problemas al abrir las puertas traseras');
 
 insert into presup values
-(70100,8003,'20230330','Se debe reeplazar el motor en su totalidad. Rotura del Block del motor',150000),
-(70101,8004,'20230404','Reemplazo de la grasa de la caja de cambio, y reparacion de la barra',8750),
-(70102,8005,'20230405','Sustitucion del tren delantero y arreglo de la parrila frontal',14000),
-(70103,8006,'20230406','Reseteo de la computadora interna del vehiculo con programa oficial',18500),
-(70104,8007,'20230406','Reparacion de cierre de puerta trasera izquierda y reemplazo de puerta derecha',9700);
+(70100,8003,'20230330','Se debe reemplazar el motor en su totalidad. Rotura del Block del motor',150000,0),
+(70101,8004,'20230404','Reemplazo de la grasa de la caja de cambio, y reparacion de la barra',8750,0),
+(70102,8005,'20230405','Sustitucion del tren delantero y arreglo de la parrila frontal',14000,0),
+(70103,8006,'20230406','Reseteo de la computadora interna del vehiculo con programa oficial',18500,0),
+(70104,8007,'20230406','Reparacion de cierre de puerta trasera izquierda y reemplazo de puerta derecha',9700,0);
 
 insert into presurep values
 (70100,60,1),
