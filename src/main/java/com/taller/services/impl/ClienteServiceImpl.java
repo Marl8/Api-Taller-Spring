@@ -34,7 +34,6 @@ public class ClienteServiceImpl implements IClienteService {
         Cliente cliente = repository.findById(id).orElseThrow(
                 () ->  new RuntimeException("Not found cliente")
         );
-        System.out.println(cliente.getVehiculos());
         return ClienteMapper.findCliente(cliente);
     }
 
