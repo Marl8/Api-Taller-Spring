@@ -34,8 +34,8 @@ constraint FK_mecdiag_mec foreign key(codMec) references mecanico(codMec)
 
 create table mecrep(
 codMR int auto_increment,
-horaE time,
-horaS time,
+hora_E time,
+hora_S time,
 codMec int,
 constraint PK_mecrep primary key(codMR),
 constraint FK_mecrep_mec foreign key(codMec) references mecanico(codMec)
