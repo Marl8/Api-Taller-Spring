@@ -23,9 +23,10 @@ public class MecanicoServiceImpl implements IMecanicoService {
     }
 
     @Override
-    public Set<Mecanico> findAllMecanicos() {
+    public Set<ResponseMecanicoDto> findAllMecanicos() {
         List<Mecanico> listaMecanicos = repository.findAll();
-        return new HashSet<>(listaMecanicos);
+        List<ResponseMecanicoDto> lista = MecanicoMapper.listaMecanicos(listaMecanicos);
+        return new HashSet<>(lista);
     }
 
     @Override

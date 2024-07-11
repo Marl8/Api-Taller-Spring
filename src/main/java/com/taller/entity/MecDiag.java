@@ -14,6 +14,7 @@ import java.util.Set;
 public class MecDiag {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "codmd")
     private Long id;
 
