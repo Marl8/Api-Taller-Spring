@@ -1,7 +1,6 @@
 package com.taller.controller;
 
 import com.taller.dto.request.MecRepRequestDto;
-import com.taller.entity.Mecanico;
 import com.taller.services.IMecRepService;
 import com.taller.services.impl.MecRepServiceImpl;
 import jakarta.validation.Valid;
