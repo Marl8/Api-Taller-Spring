@@ -24,12 +24,4 @@ public class PresuRep {
 
     @Column(name = "cant")
     private int cantidad;
-
-    @ManyToOne
-    @JoinColumn(name = "NPresup")
-    private Presupuesto presupuesto;
-
-    @ManyToOne
-    @JoinColumn(name = "codrep")
-    private Repuesto repuesto;
 }

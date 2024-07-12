@@ -31,6 +31,7 @@ public class Presupuesto {
     @JoinColumn(name = "codf")
     private Ficha ficha;
 
-    @OneToMany(mappedBy ="presupuesto")
+    @OneToMany(targetEntity = PresuRep.class)
+    @JoinColumn(name = "codrep")
     private Set<PresuRep> repuestos;
 }

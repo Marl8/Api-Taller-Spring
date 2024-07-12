@@ -53,7 +53,6 @@ public class Ficha {
     public String toString() {
         return "Ficha{" +
                 "vehiculo=" + vehiculo +
-                ", presupuestos=" + presupuestos +
                 ", hora=" + hora +
                 ", fecha=" + fecha +
                 ", id=" + id +
