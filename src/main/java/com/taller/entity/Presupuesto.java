@@ -1,5 +1,6 @@
 package com.taller.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,7 @@ public class Presupuesto {
     private Ficha ficha;
 
     @OneToMany(targetEntity = PresuRep.class)
-    @JoinColumn(name = "codrep")
+    @MapsId("codrep")
+    @JoinColumn(name = "NPresup", referencedColumnName = "NPresup")
     private Set<PresuRep> repuestos;
 }

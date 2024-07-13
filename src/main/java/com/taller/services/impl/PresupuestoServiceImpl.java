@@ -14,6 +14,7 @@ import com.taller.repository.RepuestoRepository;
 import com.taller.services.IPresupuestoService;
 import com.taller.utils.PresupuestoMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
@@ -69,16 +70,17 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
         Set<PresuRep> repuestos = new HashSet<>();
         for(Map.Entry<Long, Integer> m: mapa.entrySet()) {
             Repuesto rep = repuestoRepository.findById(m.getKey()).orElseThrow(
-                    ()-> new IllegalStateException("Repuesto not found")
+                    () -> new IllegalStateException("Repuesto not found")
             );
             PresuRep p = new PresuRep();
             p.setNPresurep(presup.getId());
             p.setCodrep(rep.getId());
             p.setCantidad(m.getValue());
-
+            System.out.println(p);
             pRepository.save(p);
             repuestos.add(p);
         }
+        presup.setRepuestos(repuestos);
+        repository.save(presup);
     }
-
 }

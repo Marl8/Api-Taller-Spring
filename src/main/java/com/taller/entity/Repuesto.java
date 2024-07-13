@@ -30,6 +30,6 @@ public class Repuesto {
     private String unidad;
 
     @OneToMany(targetEntity = PresuRep.class)
-    @JoinColumn(name = "NPresup")
+    @JoinColumn(name = "codrep", referencedColumnName = "codrep")
     private Set<PresuRep> presupuestos;
 }

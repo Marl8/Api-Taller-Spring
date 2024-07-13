@@ -22,17 +22,17 @@ public class PresupuestoController {
     }
 
     @GetMapping
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> findAllPresupuestos() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    public ResponseEntity<?> findById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
+    public ResponseEntity<?> findByIdPresupuesto(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
     public ResponseEntity<?> savePresupuesto(@RequestBody @Valid PresupuestoRequestDto p) {
-        return new ResponseEntity<>(service.save(p), HttpStatus.OK);
+        return new ResponseEntity<>(service.save(p), HttpStatus.CREATED);
     }
 }
