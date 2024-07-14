@@ -61,6 +61,7 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
         Presupuesto guardado = repository.save(presup);
         if (pDto.getPresuRep() != null) {
             cargarRepuestos(guardado, pDto.getPresuRep());
+            repository.save(presup);
         }
         return new ResponseDto("Presupuesto guardado con éxito");
     }
@@ -82,7 +83,6 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
             repuestos.add(presuRep);
             presup.getRepuestos().addAll(repuestos);
         }
-        repository.save(presup);
     }
 
     @Override
@@ -100,6 +100,7 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
         presup.setAceptado(p.isAceptado());
         presup.setFicha(ficha);
         modificarRepuestos(presup, p.getPresuRep());
+        repository.save(presup);
         return new ResponseDto("Presupuesto modificado con éxito");
     }
 
@@ -126,7 +127,6 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
         // Actualizar la lista de repuestos
         presup.getRepuestos().clear();
         presup.getRepuestos().addAll(repuestos);
-        repository.save(presup);
     }
 
     @Override
