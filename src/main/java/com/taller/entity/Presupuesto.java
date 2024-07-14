@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,8 +32,8 @@ public class Presupuesto {
     @JoinColumn(name = "codf")
     private Ficha ficha;
 
-    @OneToMany(targetEntity = PresuRep.class)
-    @MapsId("codrep")
-    @JoinColumn(name = "NPresup", referencedColumnName = "NPresup")
-    private Set<PresuRep> repuestos;
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "NPresup", updatable = false, insertable = false)
+    private Set<PresuRep> repuestos = new HashSet<>();
+
 }

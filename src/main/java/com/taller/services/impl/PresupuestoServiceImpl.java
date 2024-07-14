@@ -14,6 +14,7 @@ import com.taller.repository.RepuestoRepository;
 import com.taller.services.IPresupuestoService;
 import com.taller.utils.PresupuestoMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -66,19 +67,74 @@ public class PresupuestoServiceImpl implements IPresupuestoService {
 
     public void cargarRepuestos(Presupuesto presup, Map<Long, Integer> mapa){
         Set<PresuRep> repuestos = new HashSet<>();
-        for(Map.Entry<Long, Integer> m: mapa.entrySet()) {
+        for (Map.Entry<Long, Integer> m : mapa.entrySet()) {
             Repuesto rep = repuestoRepository.findById(m.getKey()).orElseThrow(
                     () -> new IllegalStateException("Repuesto not found")
             );
-            PresuRep p = new PresuRep();
-            p.setNPresurep(presup.getId());
-            p.setCodrep(rep.getId());
-            p.setCantidad(m.getValue());
-            System.out.println(p);
-            pRepository.save(p);
-            repuestos.add(p);
+            PresuRep presuRep = presup.getRepuestos().stream()
+                    .filter(r -> r.getCodrep().equals(rep.getId()))
+                    .findFirst()
+                    .orElse(new PresuRep());
+
+            presuRep.setNPresup(presup.getId());
+            presuRep.setCodrep(rep.getId());
+            presuRep.setCantidad(m.getValue());
+            repuestos.add(presuRep);
+            presup.getRepuestos().addAll(repuestos);
         }
-        presup.setRepuestos(repuestos);
         repository.save(presup);
+    }
+
+    @Override
+    @Transactional
+    public ResponseDto update(PresupuestoRequestDto p, Long id) {
+        Presupuesto presup = repository.findById(id).orElseThrow(
+                () -> new IllegalStateException("Presupuesto not found")
+        );
+        Ficha ficha = fichaRepository.findById(p.getFichaId()).orElseThrow(
+                () -> new IllegalStateException("Ficha not found")
+        );
+        presup.setFecha(p.getFecha());
+        presup.setDiagFinal(p.getDiagFinal());
+        presup.setMonto(p.getMonto());
+        presup.setAceptado(p.isAceptado());
+        presup.setFicha(ficha);
+        modificarRepuestos(presup, p.getPresuRep());
+        return new ResponseDto("Presupuesto modificado con éxito");
+    }
+
+    @Transactional
+    public void modificarRepuestos(Presupuesto presup, Map<Long, Integer> mapa) {
+        Set<PresuRep> repuestos = new HashSet<>();
+        for (Map.Entry<Long, Integer> m : mapa.entrySet()) {
+            Repuesto rep = repuestoRepository.findById(m.getKey()).orElseThrow(
+                    () -> new IllegalStateException("Repuesto not found")
+            );
+            PresuRep presuRep = presup.getRepuestos().stream()
+                    .filter(r -> r.getCodrep().equals(rep.getId()))
+                    .findFirst()
+                    .orElse(new PresuRep());
+
+            presuRep.setNPresup(presup.getId());
+            presuRep.setCodrep(rep.getId());
+            presuRep.setCantidad(m.getValue());
+            repuestos.add(presuRep);
+        }
+        // Eliminar los repuestos que ya no están en el mapa
+        presup.getRepuestos().removeIf(r -> !repuestos.contains(r));
+
+        // Actualizar la lista de repuestos
+        presup.getRepuestos().clear();
+        presup.getRepuestos().addAll(repuestos);
+        repository.save(presup);
+    }
+
+    @Override
+    public ResponseDto delete(Long id) {
+        Presupuesto presup = repository.findById(id).orElseThrow(
+                () -> new IllegalStateException("Presupuesto not found")
+        );
+        repository.deleteById(presup.getId());
+        return new ResponseDto("Presupuesto eliminado con éxito");
     }
 }

@@ -16,7 +16,7 @@ public class PresuRep {
 
     @Id
     @Column(name = "NPresup")
-    private Long NPresurep;
+    private Long NPresup;
 
     @Id
     @Column(name = "codrep")

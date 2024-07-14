@@ -35,4 +35,15 @@ public class PresupuestoController {
     public ResponseEntity<?> savePresupuesto(@RequestBody @Valid PresupuestoRequestDto p) {
         return new ResponseEntity<>(service.save(p), HttpStatus.CREATED);
     }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<?> updatePresupuesto(@RequestBody @Valid PresupuestoRequestDto p,
+                                               @PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
+        return new ResponseEntity<>(service.update(p,id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete")
+    public ResponseEntity<?> deletePresupuesto(@RequestParam @Positive(message = "Debe ser un número positivo") Long id) {
+        return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
+    }
 }

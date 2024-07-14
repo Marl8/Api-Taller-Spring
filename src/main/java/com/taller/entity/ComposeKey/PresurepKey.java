@@ -11,7 +11,7 @@ import java.io.Serializable;
 @Data
 public class PresurepKey implements Serializable {
 
-    private Long NPresurep;
+    private Long NPresup;
     private Long codrep;
 
     /*
