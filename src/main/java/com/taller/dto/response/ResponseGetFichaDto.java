@@ -1,6 +1,5 @@
 package com.taller.dto.response;
 
-import com.taller.dto.request.VehiculoRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
