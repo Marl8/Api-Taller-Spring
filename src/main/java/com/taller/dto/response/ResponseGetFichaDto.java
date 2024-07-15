@@ -15,5 +15,5 @@ public class ResponseGetFichaDto {
     private Long id;
     private LocalDate fecha;
     private LocalTime hora;
-    private VehiculoRequestDto vehiculo;
+    private ResponseVehiculoDto vehiculo;
 }

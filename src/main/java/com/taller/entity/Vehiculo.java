@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "vehiculo")
@@ -27,8 +28,8 @@ public class Vehiculo {
     @Column(name = "color")
     private String color;
 
-    //@OneToMany(mappedBy = "vehiculo")
-    //private Set<Ficha> fichas;
+    @OneToMany(mappedBy = "vehiculo")
+    private Set<Ficha> fichas;
 
     @ManyToOne
     @JoinColumn(name = "codC", referencedColumnName = "codC")

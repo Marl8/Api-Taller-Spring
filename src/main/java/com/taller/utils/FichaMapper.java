@@ -1,14 +1,14 @@
 package com.taller.utils;
 
 import com.taller.dto.request.FichaRequestDto;
-import com.taller.dto.request.VehiculoRequestDto;
 import com.taller.dto.response.ResponseGetFichaDto;
+import com.taller.dto.response.ResponseVehiculoDto;
 import com.taller.entity.Ficha;
 
 public class FichaMapper {
 
     public static ResponseGetFichaDto getFicha(Ficha ficha) {
-        VehiculoRequestDto vehiculo = new VehiculoRequestDto();
+        ResponseVehiculoDto vehiculo = new ResponseVehiculoDto();
         vehiculo.setId(ficha.getVehiculo().getId());
         vehiculo.setMarca(ficha.getVehiculo().getMarca());
         vehiculo.setModelo(ficha.getVehiculo().getModelo());

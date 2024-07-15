@@ -17,5 +17,5 @@ public class ResponseGetClientDto {
     private String dni;
     private String direccion;
     private String tel;
-    private Set<VehiculoRequestDto> vehiculos;
+    private Set<ResponseVehiculoDto> vehiculos;
 }

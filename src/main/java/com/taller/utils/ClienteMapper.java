@@ -5,6 +5,7 @@ import com.taller.dto.request.ClienteUpdateDto;
 import com.taller.dto.request.VehiculoRequestDto;
 import com.taller.dto.response.ResponseGetClientDto;
 import com.taller.dto.response.ResponseGetClientesDto;
+import com.taller.dto.response.ResponseVehiculoDto;
 import com.taller.entity.Cliente;
 
 import java.util.List;
@@ -19,7 +20,7 @@ public class ClienteMapper {
     }
 
     public static ResponseGetClientDto findCliente(Cliente cliente){
-        Set<VehiculoRequestDto> result = cliente.getVehiculos().stream().map(v-> new VehiculoRequestDto(v.getId(),
+        Set<ResponseVehiculoDto> result = cliente.getVehiculos().stream().map(v-> new ResponseVehiculoDto(v.getId(),
                 v.getModelo(), v.getMarca(), v.getMatricula(), v.getColor(), cliente.getId())).collect(Collectors.toSet());
         return new ResponseGetClientDto(cliente.getId(),cliente.getNombre(),cliente.getApellido(),
                 cliente.getDni(),cliente.getTel(), cliente.getDireccion(), result);
