@@ -1,5 +1,6 @@
 package com.taller.errors;
 
+import com.taller.dto.response.ErrorDTO;
 import com.taller.dto.response.ErrorValidDTO;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
@@ -7,7 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.context.request.WebRequest;
 import java.nio.file.AccessDeniedException;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -16,8 +19,10 @@ import java.util.Map;
 public class ExceptionController {
 
     @ExceptionHandler(GenericException.class)
-    public ResponseEntity<?> genericCustomException(GenericException ex){
-        return new ResponseEntity<>(ex.getMessage(), ex.getStatus());
+    public ResponseEntity<?> genericCustomException(GenericException ex, WebRequest webRequest){
+        ErrorDTO errorDetails = new ErrorDTO(LocalDateTime.now(), ex.getMessage(),
+                webRequest.getDescription(false));
+        return new ResponseEntity<>(errorDetails, ex.getStatus());
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
