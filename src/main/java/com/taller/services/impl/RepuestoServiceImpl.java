@@ -4,9 +4,11 @@ import com.taller.dto.request.RepuestoRequestDto;
 import com.taller.dto.response.ResponseDto;
 import com.taller.dto.response.ResponseRepuestoDto;
 import com.taller.entity.Repuesto;
+import com.taller.errors.GenericException;
 import com.taller.repository.RepuestoRepository;
 import com.taller.services.IRepuestoService;
 import com.taller.utils.RepuestoMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
@@ -32,7 +34,7 @@ public class RepuestoServiceImpl implements IRepuestoService {
     @Override
     public ResponseRepuestoDto findById(Long id) {
         Repuesto rep = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Repuesto not found")
+                ()-> new GenericException("Repuesto not found", HttpStatus.NOT_FOUND)
         );
         return RepuestoMapper.repuestoDto(rep);
     }
@@ -41,7 +43,7 @@ public class RepuestoServiceImpl implements IRepuestoService {
     public ResponseDto save(RepuestoRequestDto rDto) {
         Optional<Repuesto> rep = repository.findRepuestoByNombre(rDto.getNombre());
         if(rep.isPresent()) {
-            throw new IllegalStateException("El repuesto ya existe");
+            throw new GenericException("El repuesto ya existe", HttpStatus.BAD_REQUEST);
         }
         Repuesto r = RepuestoMapper.repuesto(rDto);
         repository.save(r);
@@ -51,7 +53,7 @@ public class RepuestoServiceImpl implements IRepuestoService {
     @Override
     public ResponseDto update(RepuestoRequestDto r, Long id) {
         Repuesto rep = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Repuesto not found")
+                ()-> new GenericException("Repuesto not found", HttpStatus.NOT_FOUND)
         );
         Repuesto modificado = new Repuesto();
         modificado.setId(rep.getId());
@@ -67,7 +69,7 @@ public class RepuestoServiceImpl implements IRepuestoService {
     @Override
     public ResponseDto delete(Long id) {
         Repuesto rep = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Repuesto not found")
+                ()-> new GenericException("Repuesto not found", HttpStatus.NOT_FOUND)
         );
         repository.deleteById(rep.getId());
         return new ResponseDto("Repuesto eliminado con éxito");

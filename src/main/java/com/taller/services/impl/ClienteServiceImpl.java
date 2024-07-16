@@ -6,9 +6,11 @@ import com.taller.dto.response.ResponseDto;
 import com.taller.dto.response.ResponseGetClientDto;
 import com.taller.dto.response.ResponseGetClientesDto;
 import com.taller.entity.Cliente;
+import com.taller.errors.GenericException;
 import com.taller.repository.ClienteRepository;
 import com.taller.services.IClienteService;
 import com.taller.utils.ClienteMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
@@ -32,7 +34,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public ResponseGetClientDto getClient(Long id) {
         Cliente cliente = repository.findById(id).orElseThrow(
-                () ->  new RuntimeException("Not found cliente")
+                () ->  new GenericException("Not found cliente", HttpStatus.NOT_FOUND)
         );
         return ClienteMapper.findCliente(cliente);
     }
@@ -41,7 +43,7 @@ public class ClienteServiceImpl implements IClienteService {
     public ResponseDto saveCliente(ClienteRequestDto clienteDto) {
         Optional<Cliente> existe = repository.findClienteByDni(clienteDto.getDni());
         if(existe.isPresent()) {
-            throw new IllegalStateException("El cliente ya existe");
+            throw new GenericException("El cliente ya existe", HttpStatus.BAD_REQUEST);
         }else {
             Cliente cliente = ClienteMapper.clienteRequestDto(clienteDto);
             repository.save(cliente);
@@ -52,7 +54,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public ResponseDto updateCliente(Long id, ClienteUpdateDto clienteDto) {
         Cliente existe = repository.findById(id).orElseThrow(
-                () -> new IllegalStateException("Cliente not found")
+                () -> new GenericException("Cliente not found", HttpStatus.NOT_FOUND)
         );
         Cliente modificado = ClienteMapper.clienteUpdate(clienteDto, existe.getId());
         repository.save(modificado);
@@ -62,7 +64,7 @@ public class ClienteServiceImpl implements IClienteService {
     @Override
     public ResponseDto deleteCliente(Long id) {
         Cliente existe = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Not found cliente")
+                ()-> new GenericException("Not found cliente", HttpStatus.NOT_FOUND)
         );
         repository.deleteById(existe.getId());
         return new ResponseDto("El cliente ha sido eliminado con éxito");

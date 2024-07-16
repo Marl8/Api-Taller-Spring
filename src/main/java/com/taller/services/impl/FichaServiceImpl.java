@@ -5,10 +5,12 @@ import com.taller.dto.response.ResponseDto;
 import com.taller.dto.response.ResponseGetFichaDto;
 import com.taller.entity.Ficha;
 import com.taller.entity.Vehiculo;
+import com.taller.errors.GenericException;
 import com.taller.repository.FichaRepository;
 import com.taller.repository.VehiculoRepository;
 import com.taller.services.IFichaService;
 import com.taller.utils.FichaMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,7 +27,7 @@ public class FichaServiceImpl implements IFichaService {
     @Override
     public ResponseGetFichaDto getFichaById(Long id) {
         Ficha ficha = repository.findById(id).orElseThrow(
-                () -> new IllegalStateException("Ficha not found")
+                () -> new GenericException("Ficha not found", HttpStatus.NOT_FOUND)
         );
         return FichaMapper.getFicha(ficha);
     }
@@ -33,7 +35,7 @@ public class FichaServiceImpl implements IFichaService {
     @Override
     public ResponseDto saveFicha(FichaRequestDto fichaDto) {
         Vehiculo vehiculo = vehiculoRepository.findById(fichaDto.getVehiculoId()).orElseThrow(
-                () -> new IllegalStateException("Vehiculo not found")
+                () -> new GenericException("Vehiculo not found", HttpStatus.NOT_FOUND)
         );
         Ficha ficha = FichaMapper.ficha(fichaDto);
         ficha.setVehiculo(vehiculo);
@@ -44,7 +46,7 @@ public class FichaServiceImpl implements IFichaService {
     @Override
     public ResponseDto deleteFicha(Long id) {
         Ficha encontrada = repository.findById(id).orElseThrow(
-                () -> new IllegalStateException("Ficha not found")
+                () -> new GenericException("Ficha not found", HttpStatus.NOT_FOUND)
         );
         repository.deleteById(encontrada.getId());
         return new ResponseDto("Ficha eliminada con éxito");

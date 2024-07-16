@@ -5,10 +5,12 @@ import com.taller.dto.response.ResponseDto;
 import com.taller.dto.response.ResponseVehiculoDto;
 import com.taller.entity.Cliente;
 import com.taller.entity.Vehiculo;
+import com.taller.errors.GenericException;
 import com.taller.repository.ClienteRepository;
 import com.taller.repository.VehiculoRepository;
 import com.taller.services.IVehiculoService;
 import com.taller.utils.VehiculoMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +39,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
     @Override
     public ResponseVehiculoDto findById(Long id) {
         Vehiculo vehiculo = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Vehiculo not found")
+                ()-> new GenericException("Vehiculo not found", HttpStatus.NOT_FOUND)
         );
         return VehiculoMapper.vehiculoDto(vehiculo);
     }
@@ -46,10 +48,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
     public ResponseDto save(VehiculoRequestDto vDto) {
         Optional<Vehiculo> existe = repository.findVehiculoByMatricula(vDto.getMatricula());
         if(existe.isPresent()){
-            throw new IllegalStateException("El vehículo ya existe");
+            throw new GenericException("El vehículo ya existe", HttpStatus.BAD_REQUEST);
         }
         Cliente cliente = clienteRepository.findById(vDto.getIdCliente()).orElseThrow(
-                ()-> new IllegalStateException("Cliente not found")
+                ()-> new GenericException("Cliente not found", HttpStatus.NOT_FOUND)
         );
         Vehiculo vehiculo = VehiculoMapper.vehiculo(vDto);
         vehiculo.setCliente(cliente);
@@ -60,10 +62,10 @@ public class VehiculoServiceImpl implements IVehiculoService {
     @Override
     public ResponseDto updateVehiculos(Long id, VehiculoRequestDto vDto) {
         Vehiculo vehiculo = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Vehiculo not found")
+                ()-> new GenericException("Vehiculo not found", HttpStatus.NOT_FOUND)
         );
         Cliente cliente = clienteRepository.findById(vDto.getIdCliente()).orElseThrow(
-                ()-> new IllegalStateException("Cliente not found")
+                ()-> new GenericException("Cliente not found", HttpStatus.NOT_FOUND)
         );
         Vehiculo modificado = new Vehiculo();
         modificado.setId(vehiculo.getId());
@@ -79,7 +81,7 @@ public class VehiculoServiceImpl implements IVehiculoService {
     @Override
     public ResponseDto delete(Long id) {
         Vehiculo vehiculo = repository.findById(id).orElseThrow(
-                ()-> new IllegalStateException("Vehiculo not found")
+                ()-> new GenericException("Vehiculo not found", HttpStatus.NOT_FOUND)
         );
         repository.deleteById(vehiculo.getId());
         return new ResponseDto("Vehículo eliminado con éxito");

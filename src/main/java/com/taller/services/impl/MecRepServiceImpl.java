@@ -5,10 +5,12 @@ import com.taller.dto.response.ResponseDto;
 import com.taller.dto.response.ResponseMecRepDto;
 import com.taller.entity.MecRep;
 import com.taller.entity.Mecanico;
+import com.taller.errors.GenericException;
 import com.taller.repository.MecRepRepository;
 import com.taller.repository.MecanicoRepository;
 import com.taller.services.IMecRepService;
 import com.taller.utils.MecRepMapper;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
 import java.util.List;
@@ -35,7 +37,7 @@ public class MecRepServiceImpl implements IMecRepService {
     @Override
     public ResponseMecRepDto findById(Long id) {
         MecRep mec = repository.findById(id).orElseThrow(
-                ()-> new RuntimeException("MecRep not found")
+                ()-> new GenericException("MecRep not found", HttpStatus.NOT_FOUND)
         );
         return MecRepMapper.mecRepDto(mec);
     }
@@ -44,7 +46,7 @@ public class MecRepServiceImpl implements IMecRepService {
     public ResponseDto saveMecRep(MecRepRequestDto mecDto) {
         MecRep mec = MecRepMapper.mecRep(mecDto);
         Mecanico mecanico = mecanicoRepository.findById(mecDto.getIdMecanico()).orElseThrow(
-                () -> new RuntimeException("Mecánico not found")
+                () -> new GenericException("Mecánico not found", HttpStatus.NOT_FOUND)
         );
         mec.setMecanico(mecanico);
         repository.save(mec);
@@ -54,10 +56,10 @@ public class MecRepServiceImpl implements IMecRepService {
     @Override
     public ResponseDto update(MecRepRequestDto mecRepDto, Long id) {
         MecRep mec = repository.findById(id).orElseThrow(
-                ()-> new RuntimeException("MecRep not found")
+                ()-> new GenericException("MecRep not found", HttpStatus.NOT_FOUND)
         );
         Mecanico mecanico = mecanicoRepository.findById(mecRepDto.getIdMecanico()).orElseThrow(
-                () -> new RuntimeException("Mecánico not found")
+                () -> new GenericException("Mecánico not found", HttpStatus.NOT_FOUND)
         );
         MecRep modificado = new MecRep();
         modificado.setId(mec.getId());
@@ -71,7 +73,7 @@ public class MecRepServiceImpl implements IMecRepService {
     @Override
     public ResponseDto delete(Long id) {
         MecRep mec = repository.findById(id).orElseThrow(
-                ()-> new RuntimeException("MecRep not found")
+                ()-> new GenericException("MecRep not found", HttpStatus.NOT_FOUND)
         );
         repository.deleteById(mec.getId());
         return new ResponseDto("Eliminado con éxito");
