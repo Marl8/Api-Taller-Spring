@@ -2,7 +2,6 @@ package com.taller.utils;
 
 import com.taller.dto.request.ClienteRequestDto;
 import com.taller.dto.request.ClienteUpdateDto;
-import com.taller.dto.request.VehiculoRequestDto;
 import com.taller.dto.response.ResponseGetClientDto;
 import com.taller.dto.response.ResponseGetClientesDto;
 import com.taller.dto.response.ResponseVehiculoDto;
