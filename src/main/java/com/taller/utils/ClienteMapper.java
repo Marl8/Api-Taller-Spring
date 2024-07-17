@@ -15,14 +15,14 @@ public class ClienteMapper {
 
     public static List<ResponseGetClientesDto> findAllClientes(List<Cliente> clientes){
         return clientes.stream().map(c-> new ResponseGetClientesDto(c.getId(),c.getNombre(),c.getApellido(),
-        c.getDireccion(),c.getDni(),c.getTel())).toList();
+                c.getDni(),c.getDireccion(),c.getTel())).toList();
     }
 
     public static ResponseGetClientDto findCliente(Cliente cliente){
         Set<ResponseVehiculoDto> result = cliente.getVehiculos().stream().map(v-> new ResponseVehiculoDto(v.getId(),
                 v.getModelo(), v.getMarca(), v.getMatricula(), v.getColor(), cliente.getId())).collect(Collectors.toSet());
         return new ResponseGetClientDto(cliente.getId(),cliente.getNombre(),cliente.getApellido(),
-                cliente.getDni(),cliente.getTel(), cliente.getDireccion(), result);
+                cliente.getDni(),cliente.getDireccion(), cliente.getTel(), result);
     }
 
     public static Cliente clienteRequestDto(ClienteRequestDto clienteDto) {
