@@ -10,7 +10,7 @@ Apellido varchar(50),
 Direccion varchar(70),
 tel varchar(15),
 constraint PK_cliente primary key(codC)
-)ENGINE=INNODB;
+);
 
 create table mecanico(
 codMec int auto_increment,
@@ -20,7 +20,7 @@ DNI varchar(12),
 tel varchar(15),
 repara boolean,    /* 0 si diagnostica y 1 si repara */
 constraint PK_mecanico primary key(codMec)
-)ENGINE=INNODB;
+);
 
 
 create table mecdiag(
@@ -29,7 +29,7 @@ tematica varchar(70),
 codMec int,
 constraint PK_mecdiag primary key(codMD),
 constraint FK_mecdiag_mec foreign key(codMec) references mecanico(codMec)
-)ENGINE=INNODB;
+);
 
 
 create table mecrep(
@@ -39,7 +39,7 @@ hora_S time,
 codMec int,
 constraint PK_mecrep primary key(codMR),
 constraint FK_mecrep_mec foreign key(codMec) references mecanico(codMec)
-)ENGINE=INNODB;
+);
 
 create table vehiculo(
 codVEH int auto_increment,
@@ -50,7 +50,7 @@ Color varchar(25),
 codC int,
 constraint PK_codVEH primary key(codVEH),
 constraint FK_vehiculo FOREIGN key(codC) references cliente(codC)
-)ENGINE=INNODB;
+);
 
 create table repuesto(
 codRep int auto_increment,
@@ -60,7 +60,7 @@ PP int,
 precio float,
 Unidad varchar(20),
 constraint PK_codRep primary key(codRep)
-)ENGINE=INNODB;
+);
 
 create table ficha(
 codF int auto_increment,
@@ -69,7 +69,7 @@ fecha date,
 hora time,
 constraint PK_ficha primary key(codF),
 constraint FK_codC_ficha FOREIGN key(codVEH) references vehiculo(codVEH)
-)ENGINE=INNODB;
+);
 
 
 create table fichamd(
@@ -79,7 +79,7 @@ informe varchar(100),
 constraint PK_FichaMD primary key(codMD,codF),
 constraint FK_codF FOREIGN key(codF) references ficha(codF),
 constraint FK_codMD_FM FOREIGN key(codMD) references MecDiag(codMD)
-)ENGINE=INNODB;
+);
 
 
 create table presup(
@@ -91,7 +91,7 @@ Monto float,
 Aceptado boolean,
 constraint PK_NPresup primary key(NPresup),
 constraint FK_codF_presup FOREIGN key(codF) references ficha(codF)
-)ENGINE=INNODB;
+);
 
 
 create table presurep(
@@ -101,5 +101,5 @@ cant int,
 constraint PK_PresuRep primary key(Npresup,codRep),
 constraint FK_Npresu FOREIGN key(Npresup) references presup(Npresup),
 constraint FK_codRe FOREIGN key(codRep) references repuesto(codRep)
-)ENGINE=INNODB;
+);
 
