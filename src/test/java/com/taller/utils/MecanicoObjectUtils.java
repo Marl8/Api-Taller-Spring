@@ -3,8 +3,6 @@ package com.taller.utils;
 import com.taller.dto.request.MecanicoRequestDto;
 import com.taller.dto.response.ResponseMecanicoDto;
 import com.taller.entity.Mecanico;
-import org.apache.catalina.LifecycleState;
-
 import java.util.List;
 import java.util.Set;
 
