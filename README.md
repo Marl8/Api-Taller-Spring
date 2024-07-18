@@ -2,4 +2,4 @@
 
 <br/>
 
-<div align=center> 🚧 En desarrollo... 🚧 </div>
+<div align=center> 🚧 En desarrollo ... 🚧 </div>
