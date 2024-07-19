@@ -65,7 +65,7 @@ public class MecDiagServiceImpl implements IMecDiagService {
         modificado.setId(mecDiag.getId());
         modificado.setTematica(mecDto.getTematica());
         modificado.setMecanico(mecanico);
-        MecDiag m = repository.save(modificado);
+        repository.save(modificado);
         return new ResponseDto("Modificación realizada con éxito");
     }
 
