@@ -21,7 +21,7 @@ public class MecanicoObjectUtils {
 
     public static Mecanico mecanico2(){
         Mecanico mecanico = new Mecanico();
-        mecanico.setId(1L);
+        mecanico.setId(2L);
         mecanico.setNombre("Fabian");
         mecanico.setApellido("Sucre");
         mecanico.setDni("30158707");
@@ -47,7 +47,7 @@ public class MecanicoObjectUtils {
 
     public static ResponseMecanicoDto mecanicoDto2(){
         ResponseMecanicoDto mecanico = new ResponseMecanicoDto();
-        mecanico.setId(1L);
+        mecanico.setId(2L);
         mecanico.setNombre("Fabian");
         mecanico.setApellido("Sucre");
         mecanico.setDni("30158707");
