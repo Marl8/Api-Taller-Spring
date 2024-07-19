@@ -58,7 +58,6 @@ public class MecDiagServiceImpl implements IMecDiagService {
         MecDiag mecDiag = repository.findById(id).orElseThrow(
                 ()-> new GenericException("MecDiag not found", HttpStatus.NOT_FOUND)
         );
-        System.out.println(mecDiag.getId());
         Mecanico mecanico = mecanicoRepository.findById(mecDto.getIdMecanico()).orElseThrow(
                 () -> new GenericException("Mecánico not found", HttpStatus.NOT_FOUND)
         );
@@ -67,7 +66,6 @@ public class MecDiagServiceImpl implements IMecDiagService {
         modificado.setTematica(mecDto.getTematica());
         modificado.setMecanico(mecanico);
         MecDiag m = repository.save(modificado);
-        System.out.println(m);
         return new ResponseDto("Modificación realizada con éxito");
     }
 

@@ -1,5 +1,6 @@
 package com.taller.utils;
 
+import com.taller.dto.request.MecDiagRequestDto;
 import com.taller.dto.response.ResponseMecDiagDto;
 import com.taller.entity.MecDiag;
 
@@ -46,5 +47,12 @@ public class MecDiagObjectUtils {
 
     public static Set<ResponseMecDiagDto> listaDto(){
         return Set.of(mecDiagDto(),mecDiagDto2());
+    }
+
+    public static MecDiagRequestDto mecDiagReqDto(){
+        MecDiagRequestDto mecDiag = new MecDiagRequestDto();
+        mecDiag.setTematica("Motor");
+        mecDiag.setIdMecanico(MecanicoObjectUtils.mecanico().getId());
+        return mecDiag;
     }
 }
