@@ -57,8 +57,8 @@ public class MecRepObjectUtils {
     public static MecRepRequestDto mecRepReqDto(){
         MecRepRequestDto mecRep = new MecRepRequestDto();
         mecRep.setIdMecanico(MecanicoObjectUtils.mecanico().getId());
-        mecRep.setHoraEntrada(LocalTime.of(11,15,0));
-        mecRep.setHoraSalida(LocalTime.of(18,39,46));
+        mecRep.setHoraEntrada("11:15:00");
+        mecRep.setHoraSalida("18:39:46");
         return mecRep;
     }
 }

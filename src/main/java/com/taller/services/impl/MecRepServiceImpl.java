@@ -12,6 +12,9 @@ import com.taller.services.IMecRepService;
 import com.taller.utils.MecRepMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -63,8 +66,8 @@ public class MecRepServiceImpl implements IMecRepService {
         );
         MecRep modificado = new MecRep();
         modificado.setId(mec.getId());
-        modificado.setHoraEntrada(mec.getHoraEntrada());
-        modificado.setHoraSalida(mec.getHoraSalida());
+        modificado.setHoraEntrada(convertirTime(mecRepDto.getHoraEntrada()));
+        modificado.setHoraSalida(convertirTime(mecRepDto.getHoraSalida()));
         modificado.setMecanico(mecanico);
         repository.save(modificado);
         return new ResponseDto("Modificado con éxito");
@@ -79,4 +82,8 @@ public class MecRepServiceImpl implements IMecRepService {
         return new ResponseDto("Eliminado con éxito");
     }
 
+    public static LocalTime convertirTime(String hora) {
+        DateTimeFormatter formato =  DateTimeFormatter.ofPattern("H:mm:ss");
+        return LocalTime.parse(hora, formato);
+    }
 }

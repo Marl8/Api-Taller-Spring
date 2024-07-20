@@ -3,6 +3,7 @@ package com.taller.utils;
 import com.taller.dto.request.MecRepRequestDto;
 import com.taller.dto.response.ResponseMecRepDto;
 import com.taller.entity.MecRep;
+import com.taller.services.impl.MecRepServiceImpl;
 
 import java.util.List;
 
@@ -19,8 +20,8 @@ public class MecRepMapper {
 
     public static MecRep mecRep(MecRepRequestDto mec){
         MecRep mecrep = new MecRep();
-         mecrep.setHoraEntrada(mec.getHoraEntrada());
-         mecrep.setHoraSalida(mec.getHoraSalida());
+         mecrep.setHoraEntrada(MecRepServiceImpl.convertirTime(mec.getHoraEntrada()));
+         mecrep.setHoraSalida(MecRepServiceImpl.convertirTime(mec.getHoraSalida()));
          return mecrep;
     }
 }
