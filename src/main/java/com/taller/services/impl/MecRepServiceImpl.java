@@ -82,8 +82,8 @@ public class MecRepServiceImpl implements IMecRepService {
         return new ResponseDto("Eliminado con éxito");
     }
 
-    public static LocalTime convertirTime(String hora) {
+    public static LocalTime convertirTime(String tiempo) {
         DateTimeFormatter formato =  DateTimeFormatter.ofPattern("H:mm:ss");
-        return LocalTime.parse(hora, formato);
+        return LocalTime.parse(tiempo, formato);
     }
 }
