@@ -71,6 +71,10 @@ public class PresupuestoObjectUtils {
         pre.setMonto(198500);
         pre.setDiagFinal("Cambio de carburador");
         pre.setAceptado(true);
+        Map<Long, Integer> mapa = new HashMap<>();
+        mapa.put(1L,1);
+        mapa.put(2L, 2);
+        pre.setPresuRep(mapa);
         return pre;
     }
 

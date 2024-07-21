@@ -74,9 +74,11 @@ public class PresupuestoServiceTest {
         Presupuesto presup = PresupuestoObjectUtils.presupuesto();
         PresupuestoRequestDto argumentSut = PresupuestoObjectUtils.presupuestoReqDto();
         Ficha ficha = FichaObjectsUtils.ficha();
+        Repuesto repuesto = RepuestoObjectUtils.repuesto();
         ResponseDto expected = new ResponseDto("Presupuesto guardado con éxito");
 
         when(fichaRepository.findById(any())).thenReturn(Optional.of(ficha));
+        when(repuestoRepository.findById(any())).thenReturn(Optional.of(repuesto));
         when(repository.save(any())).thenReturn(presup);
         ResponseDto actual = service.save(argumentSut);
 
