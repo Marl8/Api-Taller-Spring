@@ -3,13 +3,12 @@ package com.taller.dto.response;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @AllArgsConstructor
 @Data
 public class ErrorDTO {
 
-    private LocalDateTime date;
+    private LocalDate date;
     private String message;
-    private String description;
 }
