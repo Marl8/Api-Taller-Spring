@@ -6,6 +6,7 @@ import com.taller.entity.Ficha;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Set;
 
 public class FichaObjectsUtils {
 
@@ -18,12 +19,25 @@ public class FichaObjectsUtils {
         return f;
     }
 
+    public static Ficha ficha2(){
+        Ficha f = new Ficha();
+        f.setId(2L);
+        f.setHora(LocalTime.of(8,23,36));
+        f.setFecha(LocalDate.now());
+        f.setVehiculo(VehiculoObjectUtils.vehiculo2());
+        return f;
+    }
+
+    public static Set<Ficha> fichas() {
+       return Set.of(ficha(),ficha2());
+    }
+
     public static ResponseGetFichaDto fichaDto(){
         ResponseGetFichaDto f = new ResponseGetFichaDto();
         f.setId(1L);
         f.setHora(LocalTime.of(11,50,18));
         f.setFecha(LocalDate.now());
-        f.setVehiculo(VehiculoObjectUtils.vehiculoGetDto());
+        f.setVehiculo(VehiculoObjectUtils.vehiculoDto());
         return f;
     }
 
