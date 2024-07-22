@@ -28,10 +28,6 @@ public class FichaObjectsUtils {
         return f;
     }
 
-    public static Set<Ficha> fichas() {
-       return Set.of(ficha(),ficha2());
-    }
-
     public static ResponseGetFichaDto fichaDto(){
         ResponseGetFichaDto f = new ResponseGetFichaDto();
         f.setId(1L);
