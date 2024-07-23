@@ -25,6 +25,7 @@ public class MecDiag {
     @JoinColumn(name = "codmec", referencedColumnName= "codmec")
     private Mecanico mecanico;
 
-    @OneToMany(mappedBy = "mecDiag")
+    @OneToMany
+    @JoinColumn(name = "codmd")
     private Set<FichaMd> fichasMd;
 }

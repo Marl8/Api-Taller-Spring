@@ -32,7 +32,8 @@ public class Ficha {
     @JoinColumn(name = "codveh")
     private Vehiculo vehiculo;
 
-    @OneToMany(mappedBy = "ficha")
+    @OneToMany
+    @JoinColumn(name = "codF")
     private Set<FichaMd> fichasMd;
 
     @Override
