@@ -2,11 +2,9 @@ package com.taller.controller;
 
 import com.taller.dto.request.FichaMdRequestDto;
 import com.taller.dto.request.FichaRequestDto;
-import com.taller.entity.FichaMd;
 import com.taller.services.IFichaService;
 import com.taller.services.impl.FichaServiceImpl;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
