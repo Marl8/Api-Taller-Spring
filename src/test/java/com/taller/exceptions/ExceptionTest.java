@@ -24,7 +24,7 @@ public class ExceptionTest {
     @DisplayName("Test OK para GenericException")
     void genericExceptionTestOK(){
         GenericException argumentSut = new GenericException("Excepcion Lanzada", HttpStatus.NOT_FOUND);
-        ErrorDTO errorDTO = new ErrorDTO(LocalDate.of(2024,7,22),
+        ErrorDTO errorDTO = new ErrorDTO(LocalDate.now(),
                 "Excepcion Lanzada");
         ResponseEntity<?> expected = new ResponseEntity<>(errorDTO, HttpStatus.NOT_FOUND);
 

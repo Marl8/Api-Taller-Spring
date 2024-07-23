@@ -1,8 +1,10 @@
 package com.taller.utils;
 
+import com.taller.dto.request.FichaMdRequestDto;
 import com.taller.dto.request.FichaRequestDto;
 import com.taller.dto.response.ResponseGetFichaDto;
 import com.taller.entity.Ficha;
+import com.taller.entity.FichaMd;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -42,5 +44,19 @@ public class FichaObjectsUtils {
         f.setFecha(LocalDate.now());
         f.setVehiculoId(VehiculoObjectUtils.vehiculo().getId());
         return f;
+    }
+
+    public static FichaMdRequestDto mdRequestDto(){
+        FichaMdRequestDto md = new FichaMdRequestDto();
+        md.setInforme("Guardando informe...");
+        return md;
+    }
+
+    public static FichaMd fichaMd(){
+        FichaMd md = new FichaMd();
+        md.setCodf(1L);
+        md.setCodmd(1L);
+        md.setInforme("Guardando informe...");
+        return md;
     }
 }
