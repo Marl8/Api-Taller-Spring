@@ -25,11 +25,4 @@ public class FichaMd {
     @Column(name = "informe")
     private String informe;
 
-    /*@ManyToOne
-    @JoinColumn(name = "codF")
-    private Ficha ficha;
-
-    @ManyToOne
-    @JoinColumn(name = "codmd")
-    private MecDiag mecDiag;*/
 }
