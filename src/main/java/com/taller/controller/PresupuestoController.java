@@ -7,12 +7,14 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/presupuesto")
 @Validated
+@PreAuthorize("authentication")
 public class PresupuestoController {
 
     IPresupuestoService service;
@@ -22,27 +24,32 @@ public class PresupuestoController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
     public ResponseEntity<?> findAllPresupuestos() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
     public ResponseEntity<?> findByIdPresupuesto(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> savePresupuesto(@RequestBody @Valid PresupuestoRequestDto p) {
         return new ResponseEntity<>(service.save(p), HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{id}")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> updatePresupuesto(@RequestBody @Valid PresupuestoRequestDto p,
                                                @PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.update(p,id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> deletePresupuesto(@RequestParam @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

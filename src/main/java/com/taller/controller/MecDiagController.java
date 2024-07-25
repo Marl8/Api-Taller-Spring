@@ -7,6 +7,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,27 +23,32 @@ public class MecDiagController {
     }
 
     @GetMapping
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
     public ResponseEntity<?> findAllMecDiag() {
         return new ResponseEntity<>(service.findAllMecDiag(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
     public ResponseEntity<?> findMecDiagById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> saveMecDiag(@RequestBody @Valid MecDiagRequestDto mecdiag) {
         return new ResponseEntity<>(service.save(mecdiag), HttpStatus.CREATED);
     }
 
     @PutMapping("update/{id}")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> updateMecDiag(@RequestBody @Valid MecDiagRequestDto mecdiag,
                                            @PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.update(mecdiag, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
+    @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> deleteMecDiag(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }
