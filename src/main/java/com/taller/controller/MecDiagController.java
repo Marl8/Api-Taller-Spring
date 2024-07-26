@@ -23,13 +23,13 @@ public class MecDiagController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findAllMecDiag() {
         return new ResponseEntity<>(service.findAllMecDiag(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findMecDiagById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
@@ -41,14 +41,14 @@ public class MecDiagController {
     }
 
     @PutMapping("update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updateMecDiag(@RequestBody @Valid MecDiagRequestDto mecdiag,
                                            @PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.update(mecdiag, id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleteMecDiag(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

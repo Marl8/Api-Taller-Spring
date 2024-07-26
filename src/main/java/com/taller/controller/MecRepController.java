@@ -23,13 +23,13 @@ public class MecRepController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findById(@PathVariable @Positive(message = "Debe ser un número positivo")Long id){
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
@@ -41,14 +41,14 @@ public class MecRepController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> update(@RequestBody @Valid MecRepRequestDto mecDto,
             @PathVariable @Positive(message = "Debe ser un número positivo")Long id){
         return new ResponseEntity<>(service.update(mecDto,id), HttpStatus.OK);
     }
 
     @DeleteMapping("delete")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> delete(@RequestParam @Positive(message = "Debe ser un número positivo")Long id){
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

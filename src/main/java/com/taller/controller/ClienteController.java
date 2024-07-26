@@ -25,13 +25,13 @@ public class ClienteController {
     }
 
     @GetMapping("/findAll")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getClientes(){
       return new ResponseEntity<>(service.getClientes(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED') ")
     public ResponseEntity<?> getCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.getClient(id), HttpStatus.OK);
     }
@@ -43,14 +43,14 @@ public class ClienteController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updateCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id,
                                            @RequestBody ClienteUpdateDto clienteDto){
         return new ResponseEntity<>(service.updateCliente(id, clienteDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleteCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.deleteCliente(id), HttpStatus.OK);
     }

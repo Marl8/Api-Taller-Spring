@@ -25,7 +25,7 @@ public class FichaController {
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getFichaById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.getFichaById(id), HttpStatus.OK);
     }
@@ -37,7 +37,7 @@ public class FichaController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleteFicha(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.deleteFicha(id), HttpStatus.OK);
     }

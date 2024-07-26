@@ -24,13 +24,13 @@ public class PresupuestoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findAllPresupuestos() {
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findByIdPresupuesto(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
@@ -42,14 +42,14 @@ public class PresupuestoController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updatePresupuesto(@RequestBody @Valid PresupuestoRequestDto p,
                                                @PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.update(p,id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deletePresupuesto(@RequestParam @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

@@ -23,13 +23,13 @@ public class MecanicoController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findAllMecanicos(){
         return new ResponseEntity<>(service.findAllMecanicos(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findMecanicoById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.findMecanicoById(id),HttpStatus.OK);
     }
@@ -41,14 +41,14 @@ public class MecanicoController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updateMecanico(@PathVariable @Positive(message = "Debe ser un número positivo")Long id,
                                            @Valid @RequestBody MecanicoRequestDto mecanicoDto){
         return new ResponseEntity<>(service.updateMecanico(id, mecanicoDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleteMecanico(@RequestParam @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.deleteMecanico(id),HttpStatus.OK);
     }

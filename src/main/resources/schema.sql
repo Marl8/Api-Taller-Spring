@@ -18,7 +18,7 @@ Nombre Varchar(45),
 Apellido varchar(50),
 DNI varchar(12),
 tel varchar(15),
-repara boolean,    /* 0 si diagnostica y 1 si repara */
+repara boolean,
 constraint PK_mecanico primary key(codMec)
 );
 
@@ -103,3 +103,41 @@ constraint FK_Npresu FOREIGN key(Npresup) references presup(Npresup),
 constraint FK_codRe FOREIGN key(codRep) references repuesto(codRep)
 );
 
+create table users(
+id_user int,
+username VARCHAR(30) UNIQUE,
+password VARCHAR(50),
+is_enable boolean,
+account_non_expired boolean,
+account_non_locked boolean,
+credentials_non_expired boolean,
+constraint PK_users primary key (id_user)
+);
+
+create table rol(
+id_rol int,
+nombre VARCHAR(25),
+constraint PK_rol primary key (id_rol)
+);
+
+create table permisos(
+id_permiso int,
+nombre VARCHAR(25) UNIQUE NOT NULL,
+constraint PK_permiso primary key (id_permiso)
+);
+
+create table usrol(
+id_user int,
+id_rol int,
+constraint PK_usrol primary key (id_user, id_rol),
+constraint PK_user FOREIGN KEY (id_user) REFERENCES users (id_user),
+constraint PK_roles FOREIGN KEY (id_rol) REFERENCES rol (id_rol)
+);
+
+create table rolper(
+id_rol int,
+id_permiso int,
+constraint PK_rolper primary key (id_rol, id_permiso),
+constraint PK_roles_per FOREIGN KEY (id_rol) REFERENCES rol (id_rol),
+constraint PK_permisos FOREIGN KEY (id_permiso) REFERENCES permisos (id_permiso)
+);

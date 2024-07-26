@@ -24,13 +24,13 @@ public class VehiculoController {
     }
 
     @GetMapping("/findAll")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findAllVehiculos() {
         return new ResponseEntity<>(service.findAllVehiculos(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> findVehiculosById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }
@@ -42,13 +42,13 @@ public class VehiculoController {
     }
 
     @PutMapping("/update/{id}")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('UPDATE')")
     public ResponseEntity<?> updateVehiculos(@PathVariable @Positive(message = "Debe ser un número positivo") Long id, @RequestBody @Valid VehiculoRequestDto vDto) {
         return new ResponseEntity<>(service.updateVehiculos(id, vDto), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete")
-    @PreAuthorize("hasAuthority('CREATED')")
+    @PreAuthorize("hasAuthority('DELETE')")
     public ResponseEntity<?> deleteVehiculos(@RequestParam @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.delete(id), HttpStatus.OK);
     }

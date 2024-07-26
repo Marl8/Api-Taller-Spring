@@ -181,3 +181,32 @@ insert into presurep values
 (70102,115,1),
 (70102,118,1),
 (70104,90,1);
+
+insert into permisos values
+(1,'READ'),
+(2,'CREATED'),
+(3,'UPDATE'),
+(4,'DELETE');
+
+insert into rol values
+(1, 'ADMIN'),
+(2,'USER'),
+(3,'INVITED');
+
+insert into rolper values
+(1, 1),
+(1, 2),
+(1, 3),
+(1, 4),
+(2, 1);
+
+insert into users values
+(1, 'prueba', '12345', true, true, true, true),
+(2, 'usuario', '123', true, true, true, true);
+
+insert into usrol values
+(1, 1),
+(1, 2),
+(2, 2);
+
+
