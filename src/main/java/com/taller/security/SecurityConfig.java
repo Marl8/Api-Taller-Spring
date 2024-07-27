@@ -1,5 +1,6 @@
 package com.taller.security;
 
+import com.taller.services.security.UserDetailsServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -53,31 +54,15 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationProvider provider(){
+    public AuthenticationProvider provider(UserDetailsServiceImpl userDetails){
         DaoAuthenticationProvider daoProvider = new DaoAuthenticationProvider();
         daoProvider.setPasswordEncoder(passwordEncoder());
-        daoProvider.setUserDetailsService(userService());
+        daoProvider.setUserDetailsService(userDetails);
         return daoProvider;
     }
 
     @Bean
     public PasswordEncoder passwordEncoder(){
         return NoOpPasswordEncoder.getInstance();
-    }
-
-    @Bean
-    public UserDetailsService userService(){
-        List<UserDetails> lista = new ArrayList<>();
-        lista.add(User.withUsername("prueba")
-                .password("123")
-                .roles("ADMIN")
-                .authorities("READ", "CREATED")
-                .build());
-        lista.add(User.withUsername("prueba2")
-                .password("12345")
-                .roles("ADMIN")
-                .authorities("READ", "CREATED")
-                .build());
-        return new InMemoryUserDetailsManager(lista);
     }
 }
