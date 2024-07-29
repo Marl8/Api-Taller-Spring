@@ -201,8 +201,8 @@ insert into rolper values
 (2, 1);
 
 insert into users values
-(1, 'prueba', '12345', true, true, true, true),
-(2, 'usuario', '123', true, true, true, true);
+(1, 'prueba', '$2a$12$y.3Ds0p3a3VQk4zLJtgyKezqGacNr54XuXzMTxrxMyrPVf4UIiN9O', true, true, true, true),
+(2, 'usuario', '$2a$12$FqNar.6VDp37.oU8IlvtT.gXGVfAmIhD//Vlu4D4vlX7YN2Kso32e', true, true, true, true);
 
 insert into usrol values
 (1, 1),

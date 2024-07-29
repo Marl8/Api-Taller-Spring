@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/cliente")
 @Validated
-@PreAuthorize("hasRole('ADMIN')")
 public class ClienteController {
 
     IClienteService service;
@@ -25,13 +24,12 @@ public class ClienteController {
     }
 
     @GetMapping("/findAll")
-    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getClientes(){
       return new ResponseEntity<>(service.getClientes(), HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED') ")
+    @PreAuthorize("hasAuthority('READ') or hasAuthority('CREATED')")
     public ResponseEntity<?> getCliente(@PathVariable @Positive(message = "Debe ser un número positivo") Long id){
         return new ResponseEntity<>(service.getClient(id), HttpStatus.OK);
     }
