@@ -39,10 +39,13 @@ public class SecurityConfig {
                     auth.requestMatchers("/api/v1/login").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/v1/cliente")
                             .hasAnyAuthority("READ","CREATED", "UPDATE", "DELETE");
-                    auth.requestMatchers("/api/v1/vehiculo").hasRole("ADMIN");
+                    auth.requestMatchers("/api/v1/mecanico").hasRole("ADMIN");
                     auth.requestMatchers("/api/v1/repuesto").hasRole("ADMIN");
                     auth.requestMatchers("/api/v1/mecRep").hasRole("ADMIN");
                     auth.requestMatchers("/api/v1/mecdiag").hasRole("ADMIN");
+                    auth.requestMatchers("/api/v1/presupuesto").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/api/v1/ficha").hasAnyRole("ADMIN", "USER");
+                    auth.requestMatchers("/api/v1/vehiculo").hasAnyRole("ADMIN", "USER");
                     auth.anyRequest().authenticated();
                 })
                 .build();

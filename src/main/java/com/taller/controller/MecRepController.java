@@ -23,13 +23,13 @@ public class MecRepController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findAll(){
         return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findById(@PathVariable @Positive(message = "Debe ser un número positivo")Long id){
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }

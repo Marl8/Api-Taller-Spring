@@ -23,13 +23,13 @@ public class MecDiagController {
     }
 
     @GetMapping
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findAllMecDiag() {
         return new ResponseEntity<>(service.findAllMecDiag(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{id}")
-    @PreAuthorize("hasAuthority('READ')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<?> findMecDiagById(@PathVariable @Positive(message = "Debe ser un número positivo") Long id) {
         return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
     }

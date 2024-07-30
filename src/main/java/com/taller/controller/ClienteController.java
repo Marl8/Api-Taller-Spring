@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/cliente")
 @Validated
+@PreAuthorize("authentication")
 public class ClienteController {
 
     IClienteService service;
@@ -24,6 +25,7 @@ public class ClienteController {
     }
 
     @GetMapping("/findAll")
+    @PreAuthorize("hasAuthority('READ')")
     public ResponseEntity<?> getClientes(){
       return new ResponseEntity<>(service.getClientes(), HttpStatus.OK);
     }

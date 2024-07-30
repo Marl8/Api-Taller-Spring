@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/v1/vehiculo")
 @Validated
-@PreAuthorize("authentication")
 public class VehiculoController {
 
     IVehiculoService service;
