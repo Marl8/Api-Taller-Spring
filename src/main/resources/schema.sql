@@ -104,7 +104,7 @@ constraint FK_codRe FOREIGN key(codRep) references repuesto(codRep)
 );
 
 create table users(
-id_user int,
+id_user int auto_increment,
 username VARCHAR(30) UNIQUE,
 password VARCHAR(255),
 is_enable boolean,
