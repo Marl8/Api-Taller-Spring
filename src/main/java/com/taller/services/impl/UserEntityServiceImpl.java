@@ -12,7 +12,6 @@ import com.taller.repository.PermissionRepository;
 import com.taller.repository.RoleRepository;
 import com.taller.repository.UserEntityRepository;
 import com.taller.services.IUserEntityService;
-import io.jsonwebtoken.security.Password;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
