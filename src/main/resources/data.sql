@@ -191,14 +191,22 @@ insert into permisos values
 insert into rol values
 (1, 'ADMIN'),
 (2,'USER'),
-(3,'INVITED');
+(3,'INVITED'),
+(4, 'ADMIN_ADD'),
+(5, 'ADMIN_DELETE');
 
 insert into rolper values
 (1, 1),
 (1, 2),
 (1, 3),
 (1, 4),
-(2, 1);
+(2, 1),
+(4, 1),
+(4, 2),
+(4, 3),
+(5, 1),
+(5, 4);
+
 
 insert into users values
 (1, 'prueba', '$2a$12$y.3Ds0p3a3VQk4zLJtgyKezqGacNr54XuXzMTxrxMyrPVf4UIiN9O', true, true, true, true),

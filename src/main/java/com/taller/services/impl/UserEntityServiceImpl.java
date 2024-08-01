@@ -1,5 +1,7 @@
 package com.taller.services.impl;
 
+import com.taller.dto.request.UserEntityAuthRequestDto;
+import com.taller.dto.request.UserEntityUpdateRequestDto;
 import com.taller.dto.request.UserRequestDto;
 import com.taller.dto.response.ResponseDto;
 import com.taller.entity.PermissionEntity;
@@ -16,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -65,5 +68,53 @@ public class UserEntityServiceImpl implements IUserEntityService {
         user.setRoleList(roles);
         repository.save(user);
         return new ResponseDto("Usuario guardado con éxito");
+    }
+
+    @Override
+    public ResponseDto updateUser(UserEntityUpdateRequestDto userDto, Long id) {
+        UserEntity user = repository.findById(id).orElseThrow(
+                ()-> new GenericException("User not found", HttpStatus.NOT_FOUND)
+        );
+        user.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        repository.save(user);
+        return new ResponseDto("User modificado con éxito");
+    }
+
+    @Override
+    public ResponseDto updateAuthorties(UserEntityAuthRequestDto userDto, Long idUser) {
+        UserEntity user = repository.findById(idUser).orElseThrow(
+                ()-> new GenericException("User not found", HttpStatus.NOT_FOUND)
+        );
+        List<RoleEntity> roles = userDto.getRoles().stream()
+                .map(r-> roleRepository
+                        .findById(r)
+                        .orElseThrow(()-> new GenericException("Role not found", HttpStatus.NOT_FOUND)))
+                .toList();
+        roles.forEach(r->{
+            if(r.getRoleEnum().name().equals("ADMIN")){
+                List<PermissionEntity> permisos = r.getPermissionsList().stream()
+                        .map(p-> permissionRepository
+                                .findById(p.getId())
+                                .orElseThrow(()-> new GenericException("Permission not found", HttpStatus.NOT_FOUND)))
+                        .toList();
+                Set<PermissionEntity> lista = new HashSet<>(permisos);
+                r.setPermissionsList(lista);
+            }
+        });
+        Set<RoleEntity> listaRoles = new HashSet<>(roles);
+        user.setRoleList(listaRoles);
+        repository.save(user);
+        return new ResponseDto("Autorizaciones modificadas con éxito");
+    }
+
+    @Override
+    public ResponseDto deleteUser(Long id) {
+        boolean existe = repository.existsById(id);
+        if(existe){
+            repository.deleteById(id);
+        }else{
+            throw new GenericException("User don't exist", HttpStatus.NOT_FOUND);
+        }
+        return new ResponseDto("User eliminado con éxito");
     }
 }
