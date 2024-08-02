@@ -1,7 +1,7 @@
 package com.taller.controller;
 
-import com.taller.dto.request.UserEntityAuthRequestDto;
-import com.taller.dto.request.UserEntityUpdateRequestDto;
+import com.taller.dto.request.UserAuthRequestDto;
+import com.taller.dto.request.UserUpdateRequestDto;
 import com.taller.dto.request.UserRequestDto;
 import com.taller.services.IUserEntityService;
 import com.taller.services.impl.UserEntityServiceImpl;
@@ -24,6 +24,12 @@ public class UserEntityController {
         this.service = service;
     }
 
+    @GetMapping("/´findAll")
+    @PreAuthorize("hasAuthority('UPDATE') or hasAuthority('DELETE')")
+    public ResponseEntity<?> findAllUsers(){
+        return new ResponseEntity<>(service.findAllUsers(), HttpStatus.OK);
+    }
+
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('CREATED')")
     public ResponseEntity<?> createUser(@RequestBody @Valid UserRequestDto userDto) {
@@ -32,14 +38,14 @@ public class UserEntityController {
 
     @PutMapping("/update/{id}")
     @PreAuthorize("hasAuthority('UPDATE')")
-    public ResponseEntity<?> updateUser(@RequestBody @Valid UserEntityUpdateRequestDto userDto,
+    public ResponseEntity<?> updateUser(@RequestBody @Valid UserUpdateRequestDto userDto,
                                         @PathVariable @Positive(message = "Id debe ser un número positivo")Long id){
         return new ResponseEntity<>(service.updateUser(userDto,id), HttpStatus.OK);
     }
 
     @PutMapping("/updateAuthorities/{idUser}")
     @PreAuthorize("hasAuthority('UPDATE')")
-    public ResponseEntity<?> updateAuthorities(@RequestBody @Valid UserEntityAuthRequestDto userDto,
+    public ResponseEntity<?> updateAuthorities(@RequestBody @Valid UserAuthRequestDto userDto,
                                         @PathVariable @Positive(message = "Id debe ser un número positivo")Long idUser){
         return new ResponseEntity<>(service.updateAuthorties(userDto,idUser), HttpStatus.OK);
     }

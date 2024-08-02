@@ -1,9 +1,10 @@
 package com.taller.services.impl;
 
-import com.taller.dto.request.UserEntityAuthRequestDto;
-import com.taller.dto.request.UserEntityUpdateRequestDto;
+import com.taller.dto.request.UserAuthRequestDto;
+import com.taller.dto.request.UserUpdateRequestDto;
 import com.taller.dto.request.UserRequestDto;
 import com.taller.dto.response.ResponseDto;
+import com.taller.dto.response.ResponseUserDto;
 import com.taller.entity.PermissionEntity;
 import com.taller.entity.RoleEntity;
 import com.taller.entity.UserEntity;
@@ -14,6 +15,7 @@ import com.taller.repository.PermissionRepository;
 import com.taller.repository.RoleRepository;
 import com.taller.repository.UserEntityRepository;
 import com.taller.services.IUserEntityService;
+import com.taller.utils.UserMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -42,6 +44,12 @@ public class UserEntityServiceImpl implements IUserEntityService {
     }
 
     @Override
+    public List<ResponseUserDto> findAllUsers() {
+        List<UserEntity> listaUsers = repository.findAll();
+        return UserMapper.listaUserDto(listaUsers);
+    }
+
+    @Override
     public ResponseDto createUser(UserRequestDto userDto) {
         Optional<UserEntity> existe = repository.findUserEntityByUsername(userDto.getUsername());
         if(existe.isPresent()) {
@@ -56,10 +64,8 @@ public class UserEntityServiceImpl implements IUserEntityService {
         user.setCredentialsNonExpired(true);
         RoleEntity role = roleRepository.findByRoleEnum(RoleEnum.USER).orElseThrow(
                 () -> new GenericException("Role not found", HttpStatus.NOT_FOUND));
-        System.out.println(role);
         PermissionEntity permission = permissionRepository.findByPermission(PermissionEnum.READ)
                 .orElseThrow(()-> new GenericException("Permission not found", HttpStatus.NOT_FOUND));
-        System.out.println(permission);
         Set<PermissionEntity> permissions = new HashSet<>();
         permissions.add(permission);
         role.setPermissionsList(permissions);
@@ -71,7 +77,7 @@ public class UserEntityServiceImpl implements IUserEntityService {
     }
 
     @Override
-    public ResponseDto updateUser(UserEntityUpdateRequestDto userDto, Long id) {
+    public ResponseDto updateUser(UserUpdateRequestDto userDto, Long id) {
         UserEntity user = repository.findById(id).orElseThrow(
                 ()-> new GenericException("User not found", HttpStatus.NOT_FOUND)
         );
@@ -81,7 +87,7 @@ public class UserEntityServiceImpl implements IUserEntityService {
     }
 
     @Override
-    public ResponseDto updateAuthorties(UserEntityAuthRequestDto userDto, Long idUser) {
+    public ResponseDto updateAuthorties(UserAuthRequestDto userDto, Long idUser) {
         UserEntity user = repository.findById(idUser).orElseThrow(
                 ()-> new GenericException("User not found", HttpStatus.NOT_FOUND)
         );

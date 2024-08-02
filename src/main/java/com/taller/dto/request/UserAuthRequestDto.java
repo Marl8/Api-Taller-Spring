@@ -9,7 +9,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserEntityAuthRequestDto {
+public class UserAuthRequestDto {
 
     @NotEmpty(message = "La lista no puede esta vacía")
     List<Long> roles;

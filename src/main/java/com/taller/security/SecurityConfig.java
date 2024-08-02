@@ -37,6 +37,13 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth-> {
                     auth.requestMatchers("/error").permitAll();
                     auth.requestMatchers("/api/v1/login").permitAll();
+                    auth.requestMatchers(
+                            "/api/**",
+                            "/swagger-ui/**",
+                            "/swagger-ui.html",
+                            "/swagger-resources/**",
+                            "/v3/api-docs/**",
+                            "/configuration/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/api/v1/cliente")
                             .hasAnyAuthority("READ","CREATED", "UPDATE", "DELETE");
                     auth.requestMatchers("/api/v1/mecanico").hasRole("ADMIN");
