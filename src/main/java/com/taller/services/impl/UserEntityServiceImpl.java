@@ -97,7 +97,7 @@ public class UserEntityServiceImpl implements IUserEntityService {
                         .orElseThrow(()-> new GenericException("Role not found", HttpStatus.NOT_FOUND)))
                 .toList();
         roles.forEach(r->{
-            if(r.getRoleEnum().name().equals("ADMIN")){
+            if(r.getRoleEnum().name().contains("ADMIN")){
                 List<PermissionEntity> permisos = r.getPermissionsList().stream()
                         .map(p-> permissionRepository
                                 .findById(p.getId())
