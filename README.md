@@ -1,7 +1,7 @@
 ## <h1 align="center">⭐ Api Soporte Técnico ⭐</h1>
 
 <br>
-<div align="center">Proyecto realizado con Spring Boot 3 y MySQ</div> 
+<div align="center">Proyecto realizado con Spring Boot 3, Spring Security, JWT y MySQL</div> 
 <br>
 
 <hr/>
